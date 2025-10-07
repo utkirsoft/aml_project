@@ -55,3 +55,4 @@ EXPOSE 8000
 
 # Gunicorn'ni ishga tushirish (docker-compose da aniqroq ko'rsatiladi)
 CMD ["gunicorn", "aml.wsgi:application", "--bind", "0.0.0.0:8000"]
+
