@@ -7,9 +7,13 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # Kerakli paketlarni o'rnatish
-RUN apt-get update && \
-   apt-get install -y --no-install-recommends build-essential libpq-dev netcat-openbsd && \
-   rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    curl \
+    git \
+    vim \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
@@ -25,7 +29,7 @@ COPY --from-builder /usr/local/bin/pip /usr/local/bin/pip
 RUN pip install --no-cache /wheels/*
 
 # Loyiha kodini ko'chirish
-COPY . .
+COPY .
 
 # Xavfsizlik uchun alohida foydalanuvchi yaratish
 RUN useradd -ms /bin/bash appuser

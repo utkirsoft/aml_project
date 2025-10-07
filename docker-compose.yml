@@ -31,19 +31,6 @@ services:
       - db
       - redis
     restart: unless-stopped
-
-  celery:
-    build: .
-    container_name: aml_celery_worker
-    command: celery -A aml worker -l info
-    volumes:
-      - .:/app
-    env_file:
-      - .env
-    depends_on:
-      - backend
-      - redis
-    restart: unless-stopped
-
+ 
 volumes:
   postgres_data:
