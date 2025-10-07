@@ -7,8 +7,8 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # Kerakli paketlarni o'rnatish
-RUN apt-get update && 
-    apt-get install -y --no-install-recommends build-essential libpq-dev && 
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends build-essential libpq-dev && \
     pip install --upgrade pip
 
 COPY requirements.txt .
