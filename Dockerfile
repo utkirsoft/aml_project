@@ -1,4 +1,4 @@
-# 1-bosqich Bog'liqliklarni o'rnatish
+# 1-bosqich: Bog'liqliklarni o'rnatish
 FROM python:3.10-slim-buster AS builder
 
 WORKDIR /app
@@ -14,14 +14,14 @@ RUN apt-get update && \
 COPY requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
 
-# 2-bosqich Asosiy image'ni yaratish
+# 2-bosqich: Asosiy image'ni yaratish
 FROM python:3.10-slim-buster
 
 WORKDIR /app
 
 # Bog'liqliklarni builder'dan ko'chirish
-COPY --from=builder /app/wheels wheels
-COPY --from=builder /usr/local/bin/pip /usr/local/bin/pip
+COPY --from-builder /app/wheels /wheels
+COPY --from-builder /usr/local/bin/pip /usr/local/bin/pip
 RUN pip install --no-cache /wheels/*
 
 # Loyiha kodini ko'chirish
@@ -34,4 +34,4 @@ USER appuser
 EXPOSE 8000
 
 # Gunicorn'ni ishga tushirish (docker-compose da aniqroq ko'rsatiladi)
-CMD [gunicorn, aml.wsgi:application, --bind, 0.0.0.0:8000]
+CMD ["gunicorn", "aml.wsgi:application", "--bind", "0.0.0.0:8000"]
