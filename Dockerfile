@@ -1,5 +1,5 @@
 # 1-bosqich Bog'liqliklarni o'rnatish
-FROM python3.10-slim-buster AS builder
+FROM python3.11-slim-bookworm AS builder
 
 WORKDIR app
 
@@ -15,7 +15,7 @@ COPY requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir appwheels -r requirements.txt
 
 # 2-bosqich Asosiy image'ni yaratish
-FROM python3.10-slim-buster
+FROM python3.11-slim-bookworm 
 
 WORKDIR app
 
