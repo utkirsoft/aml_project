@@ -24,8 +24,8 @@ FROM python:3.10-slim-buster
 WORKDIR /app
 
 # Bog'liqliklarni builder'dan ko'chirish
-COPY --from-builder /app/wheels /wheels
-COPY --from-builder /usr/local/bin/pip /usr/local/bin/pip
+COPY --from=builder /app/wheels /wheels
+COPY --from=builder /usr/local/bin/pip /usr/local/bin/pip
 RUN python3 -m pip install --no-cache /wheels/*
 
 # Loyiha kodini ko'chirish
