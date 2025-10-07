@@ -1,1 +1,13 @@
+# Bu fayl .gitignore bilan deyarli bir xil
+.git
+.gitignore
+.venv/
+__pycache__/
+*.pyc
+*.log
 .env
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store
