@@ -1,5 +1,5 @@
 # 1-bosqich: Bog'liqliklarni o'rnatish
-FROM python:3.10-slim-buster AS builder
+FROM python:3.11-slim-bookworm AS builder
 
 WORKDIR /app
 
@@ -16,10 +16,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt .
-RUN pyhon3 -m pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
+RUN python3 -m pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
 
 # 2-bosqich: Asosiy image'ni yaratish
-FROM python:3.10-slim-buster
+FROM python:3.11-slim-bookworm
 
 WORKDIR /app
 
@@ -38,5 +38,5 @@ USER appuser
 EXPOSE 8000
 
 # Gunicorn'ni ishga tushirish (docker-compose da aniqroq ko'rsatiladi)
-CMD ["gunicorn", "aml.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["/usr/local/bin/gunicorn", "aml.wsgi:application", "--bind", "0.0.0.0:8000"]
 
